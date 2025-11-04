@@ -1,0 +1,40 @@
+# .dockerignore
+# Exclude unnecessary files from Docker build context
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+
+# Checkpoints and models
+checkpoints/
+models/
+*.ckpt
+
+# Logs
+*.log
+wandb/
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+README.md
+example_runs.ps1
+docker_run.ps1
+
+# OS files
+.DS_Store
+Thumbs.db

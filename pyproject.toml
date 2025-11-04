@@ -1,0 +1,17 @@
+[project]
+name = "glue-transformer"
+version = "0.1.0"
+description = "GLUE benchmark fine-tuning with PyTorch Lightning"
+requires-python = ">=3.8"
+dependencies = [
+    "datasets>=2.14.0",
+    "evaluate>=0.4.0",
+    "lightning>=2.0.0",
+    "torch>=2.0.0",
+    "transformers>=4.30.0",
+    "wandb>=0.15.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
