@@ -186,10 +186,10 @@ def main():
     checkpoint_callback = ModelCheckpoint(
         dirpath=checkpoint_dir,
         filename="{epoch}-{step}-{val_loss:.4f}",
-        save_top_k=3,
+        save_top_k=1,  # Only save the best checkpoint to save disk space
         monitor="val_loss",
         mode="min",
-        save_last=True,
+        save_last=False,  # Don't save last to save disk space
     )
     
     # Initialize trainer

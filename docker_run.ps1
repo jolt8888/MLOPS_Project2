@@ -18,7 +18,10 @@ if ($LASTEXITCODE -eq 0) {
     
     # Run the container
     # Mount local checkpoints directory to save models
+    # --shm-size increases shared memory (helps with multiprocessing)
+    # --storage-opt size=10G increases container storage (requires specific storage drivers)
     docker run --rm `
+        --shm-size=2g `
         -v "${PWD}/checkpoints:/app/checkpoints" `
         glue-trainer:latest
 } else {
