@@ -5,6 +5,7 @@ Usage:
     python train.py --checkpoint_dir models --lr 1e-3 --epochs 3
 """
 import argparse
+import os
 from datetime import datetime
 from pathlib import Path
 
@@ -134,6 +135,24 @@ def main():
     # Create checkpoint directory
     checkpoint_dir = Path(args.checkpoint_dir)
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Initialize W&B logger with API key if available
+    import wandb
+    wandb_api_key = os.getenv('WANDB_API_KEY')
+    
+    # Ensure W&B is logged in before creating logger
+    if wandb_api_key and os.getenv('WANDB_MODE') != 'offline':
+        # Write API key to config file for wandb to pick up
+        wandb_dir = os.path.expanduser("~/.netrc")
+        try:
+            with open(wandb_dir, 'w') as f:
+                f.write(f"machine api.wandb.ai\n")
+                f.write(f"  login user\n")
+                f.write(f"  password {wandb_api_key}\n")
+            os.chmod(wandb_dir, 0o600)
+            print("✓ W&B API key configured")
+        except Exception as e:
+            print(f"⚠ Failed to configure W&B: {e}")
     
     # Initialize W&B logger
     wandb_run_name = args.wandb_run_name or f"{args.task_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"

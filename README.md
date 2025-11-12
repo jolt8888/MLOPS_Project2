@@ -131,18 +131,28 @@ python train.py \
 
 ## W&B Setup
 
-Make sure you're logged into Weights & Biases:
+### Option 1: Set API Key as Environment Variable (Recommended for Docker)
+
+```powershell
+# Get your API key from https://wandb.ai/settings
+$env:WANDB_API_KEY = "your_api_key_here"
+```
+
+### Option 2: Login via CLI
 
 ```bash
 wandb login
 ```
 
 Your training metrics will be automatically logged to W&B, including:
-- Training loss
-- Validation loss
-- Task-specific metrics (accuracy, F1, etc.)
-- Model checkpoints
-- Hyperparameters
+- **Training loss** - Loss during training
+- **Validation loss** - Loss on validation set
+- **Task-specific metrics** - Accuracy, F1, Precision, Recall
+- **Model checkpoints** - Best model artifacts
+- **Hyperparameters** - All training configuration
+- **System metrics** - CPU/GPU usage, memory
+
+View your experiments at: https://wandb.ai/
 
 ## Docker Usage
 
@@ -150,21 +160,24 @@ Your training metrics will be automatically logged to W&B, including:
 
 Run training in Docker with the best hyperparameters from Project 1 (lr=2.33e-5, warmup=0.0966):
 
-**Without W&B logging:**
-```bash
+**Without W&B logging (offline mode):**
+```powershell
 .\docker_run.ps1
 ```
 
-**With W&B logging:**
-```bash
-.\docker_run_wandb.ps1 -WandbApiKey YOUR_WANDB_API_KEY
+**With W&B logging (recommended):**
+```powershell
+# First, set your W&B API key (get it from https://wandb.ai/settings)
+$env:WANDB_API_KEY = "your_api_key_here"
+
+# Run training with W&B logging
+.\docker_run_wandb.ps1
+
+# Or skip rebuild if you've already built the image
+.\docker_run_wandb.ps1 -SkipBuild
 ```
 
-Or set environment variable and run:
-```bash
-$env:WANDB_API_KEY = "your_api_key_here"
-.\docker_run_wandb.ps1
-```
+See [WANDB_SETUP.md](WANDB_SETUP.md) for detailed W&B setup instructions and performance verification guide.
 
 ### Manual Docker Commands
 

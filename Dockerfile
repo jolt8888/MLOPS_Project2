@@ -26,8 +26,7 @@ RUN mkdir -p /app/checkpoints
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
-# Disable W&B for faster training without logging overhead (override with -e WANDB_MODE=online)
-ENV WANDB_MODE=disabled
+# W&B mode can be set at runtime: -e WANDB_MODE=online (default) or -e WANDB_MODE=offline
 
 # Default command runs training with best hyperparameters from Project 1
 # Learning rate ≈ 2.33e-5, warmup ≈ 0.0966 (convert to steps)
